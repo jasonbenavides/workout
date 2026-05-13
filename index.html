@@ -197,6 +197,7 @@ flex-shrink: 0;
 .ex-weight {
 font-size: 15px;
 color: var(–blue);
+-webkit-text-fill-color: var(–blue);
 text-align: right;
 background: none;
 border: none;
@@ -209,7 +210,10 @@ padding: 0;
 caret-color: var(–blue);
 }
 
-.ex-weight::placeholder { color: var(–tertiary); }
+.ex-weight::placeholder {
+color: var(–tertiary);
+-webkit-text-fill-color: var(–tertiary);
+}
 
 /* OR exercise wrapper */
 .or-wrap {
@@ -323,6 +327,7 @@ padding: 3px 0;
 <div class="content">
   <div class="card-group">
 
+```
 <!-- ── DAY 1 ── -->
 <div class="day-row" onclick="toggleDay(this,'day1')">
   <div class="day-text">
@@ -506,7 +511,7 @@ padding: 3px 0;
 
   </div>
 </div>
-
+```
 
   </div>
 </div>
