@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,314 +7,299 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-–bg: #f2f2f7;
-–card: #ffffff;
-–separator: rgba(60,60,67,0.12);
-–label: #000000;
-–secondary: rgba(60,60,67,0.6);
-–tertiary: rgba(60,60,67,0.3);
-–blue: #007aff;
-–fill: rgba(120,120,128,0.12);
-}
+  :root {
+    --bg: #000000;
+    --card: #1c1c1e;
+    --separator: rgba(84,84,88,0.6);
+    --label: #ffffff;
+    --secondary: rgba(235,235,245,0.6);
+    --tertiary: rgba(235,235,245,0.3);
+    --blue: #007aff;
+    --fill: rgba(120,120,128,0.2);
+  }
 
-@media (prefers-color-scheme: dark) {
-:root {
-–bg: #000000;
-–card: #1c1c1e;
-–separator: rgba(84,84,88,0.6);
-–label: #ffffff;
-–secondary: rgba(235,235,245,0.6);
-–tertiary: rgba(235,235,245,0.3);
-–fill: rgba(120,120,128,0.2);
-}
-}
+  body {
+    background: var(--bg);
+    color: var(--label);
+    font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 48px;
+    min-height: 100vh;
+  }
 
-body {
-background: var(–bg);
-color: var(–label);
-font-family: -apple-system, ‘SF Pro Text’, ‘Helvetica Neue’, sans-serif;
--webkit-font-smoothing: antialiased;
-padding-bottom: 48px;
-min-height: 100vh;
-}
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(242,242,247,0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 0.5px solid var(--separator);
+    padding: 12px 16px 10px;
+  }
 
-.nav {
-position: sticky;
-top: 0;
-z-index: 10;
-background: rgba(242,242,247,0.85);
-backdrop-filter: saturate(180%) blur(20px);
--webkit-backdrop-filter: saturate(180%) blur(20px);
-border-bottom: 0.5px solid var(–separator);
-padding: 12px 16px 10px;
-}
+  .nav { background: rgba(0,0,0,0.85); }
 
-@media (prefers-color-scheme: dark) {
-.nav { background: rgba(0,0,0,0.85); }
-}
+  .nav h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 0.37px;
+    color: var(--label);
+    line-height: 1.1;
+  }
 
-.nav h1 {
-font-size: 34px;
-font-weight: 700;
-letter-spacing: 0.37px;
-color: var(–label);
-line-height: 1.1;
-}
+  .nav-sub {
+    font-size: 13px;
+    color: var(--secondary);
+    margin-top: 2px;
+  }
 
-.nav-sub {
-font-size: 13px;
-color: var(–secondary);
-margin-top: 2px;
-}
+  .content {
+    padding: 20px 16px 0;
+    max-width: 430px;
+    margin: 0 auto;
+  }
 
-.content {
-padding: 20px 16px 0;
-max-width: 430px;
-margin: 0 auto;
-}
+  .card-group {
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+  }
 
-.card-group {
-background: var(–card);
-border-radius: 12px;
-overflow: hidden;
-}
+  /* Day header row */
+  .day-row {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    gap: 12px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    position: relative;
+    transition: background 0.1s;
+  }
 
-/* Day header row */
-.day-row {
-display: flex;
-align-items: center;
-padding: 14px 16px;
-gap: 12px;
-cursor: pointer;
--webkit-tap-highlight-color: transparent;
-user-select: none;
-position: relative;
-transition: background 0.1s;
-}
+  .day-row:active { background: var(--fill); }
 
-.day-row:active { background: var(–fill); }
+  .day-row + .day-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 16px; right: 0;
+    height: 0.5px;
+    background: var(--separator);
+  }
 
-.day-row + .day-row::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 16px; right: 0;
-height: 0.5px;
-background: var(–separator);
-}
+  .day-text { flex: 1; min-width: 0; }
 
-.day-text { flex: 1; min-width: 0; }
+  .day-name {
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--label);
+  }
 
-.day-name {
-font-size: 17px;
-font-weight: 400;
-color: var(–label);
-}
+  .day-desc {
+    font-size: 13px;
+    color: var(--secondary);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.day-desc {
-font-size: 13px;
-color: var(–secondary);
-margin-top: 1px;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-}
+  .chevron {
+    color: var(--tertiary);
+    font-size: 18px;
+    font-weight: 300;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    display: inline-block;
+    line-height: 1;
+    flex-shrink: 0;
+  }
 
-.chevron {
-color: var(–tertiary);
-font-size: 18px;
-font-weight: 300;
-transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
-display: inline-block;
-line-height: 1;
-flex-shrink: 0;
-}
+  .day-row.open .chevron {
+    transform: rotate(90deg);
+    color: var(--blue);
+  }
 
-.day-row.open .chevron {
-transform: rotate(90deg);
-color: var(–blue);
-}
+  /* Day detail panel */
+  .day-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
 
-/* Day detail panel */
-.day-detail {
-max-height: 0;
-overflow: hidden;
-transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
-}
+  .day-detail.open { max-height: 3000px; }
 
-.day-detail.open { max-height: 3000px; }
+  .detail-inner {
+    border-top: 0.5px solid var(--separator);
+    padding-bottom: 6px;
+  }
 
-.detail-inner {
-border-top: 0.5px solid var(–separator);
-padding-bottom: 6px;
-}
+  .sub-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tertiary);
+    padding: 14px 16px 6px;
+  }
 
-.sub-label {
-font-size: 11px;
-font-weight: 600;
-letter-spacing: 0.08em;
-text-transform: uppercase;
-color: var(–tertiary);
-padding: 14px 16px 6px;
-}
+  /* Standard exercise row */
+  .ex-row {
+    display: flex;
+    align-items: center;
+    padding: 9px 16px;
+    gap: 10px;
+    position: relative;
+    min-height: 42px;
+  }
 
-/* Standard exercise row */
-.ex-row {
-display: flex;
-align-items: center;
-padding: 9px 16px;
-gap: 10px;
-position: relative;
-min-height: 42px;
-}
+  .ex-row + .ex-row::before,
+  .ex-row + .or-wrap::before,
+  .or-wrap + .ex-row::before,
+  .or-wrap + .or-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 16px; right: 16px;
+    height: 0.5px;
+    background: var(--separator);
+  }
 
-.ex-row + .ex-row::before,
-.ex-row + .or-wrap::before,
-.or-wrap + .ex-row::before,
-.or-wrap + .or-wrap::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 16px; right: 16px;
-height: 0.5px;
-background: var(–separator);
-}
+  .ex-name {
+    flex: 1;
+    font-size: 15px;
+    color: var(--label);
+    line-height: 1.35;
+  }
 
-.ex-name {
-flex: 1;
-font-size: 15px;
-color: var(–label);
-line-height: 1.35;
-}
+  .ex-sets {
+    font-size: 13px;
+    color: var(--secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 
-.ex-sets {
-font-size: 13px;
-color: var(–secondary);
-white-space: nowrap;
-flex-shrink: 0;
-}
+  .ex-weight {
+    font-size: 15px;
+    color: var(--blue);
+    -webkit-text-fill-color: var(--blue);
+    text-align: right;
+    background: none;
+    border: none;
+    outline: none;
+    width: 76px;
+    flex-shrink: 0;
+    font-family: inherit;
+    -webkit-appearance: none;
+    padding: 0;
+    caret-color: var(--blue);
+  }
 
-.ex-weight {
-font-size: 15px;
-color: var(–blue);
--webkit-text-fill-color: var(–blue);
-text-align: right;
-background: none;
-border: none;
-outline: none;
-width: 76px;
-flex-shrink: 0;
-font-family: inherit;
--webkit-appearance: none;
-padding: 0;
-caret-color: var(–blue);
-}
+  .ex-weight::placeholder {
+    color: var(--tertiary);
+    -webkit-text-fill-color: var(--tertiary);
+  }
 
-.ex-weight::placeholder {
-color: var(–tertiary);
--webkit-text-fill-color: var(–tertiary);
-}
+  /* OR exercise wrapper */
+  .or-wrap {
+    position: relative;
+  }
 
-/* OR exercise wrapper */
-.or-wrap {
-position: relative;
-}
+  .or-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 16px; right: 16px;
+    height: 0.5px;
+    background: var(--separator);
+  }
 
-.or-wrap::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 16px; right: 16px;
-height: 0.5px;
-background: var(–separator);
-}
+  /* Primary row — looks identical to a normal ex-row */
+  .or-primary {
+    display: flex;
+    align-items: center;
+    padding: 9px 16px;
+    gap: 10px;
+    min-height: 42px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
 
-/* Primary row — looks identical to a normal ex-row */
-.or-primary {
-display: flex;
-align-items: center;
-padding: 9px 16px;
-gap: 10px;
-min-height: 42px;
-cursor: pointer;
--webkit-tap-highlight-color: transparent;
-user-select: none;
-}
+  .or-primary:active { background: var(--fill); }
 
-.or-primary:active { background: var(–fill); }
+  /* Small chevron next to exercise name */
+  .or-chevron {
+    font-size: 12px;
+    color: var(--tertiary);
+    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    flex-shrink: 0;
+    margin-left: -4px;
+  }
 
-/* Small chevron next to exercise name */
-.or-chevron {
-font-size: 12px;
-color: var(–tertiary);
-transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
-flex-shrink: 0;
-margin-left: -4px;
-}
+  .or-wrap.open .or-chevron {
+    transform: rotate(90deg);
+    color: var(--blue);
+  }
 
-.or-wrap.open .or-chevron {
-transform: rotate(90deg);
-color: var(–blue);
-}
+  /* Alternate row — slides in below */
+  .or-alt {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
 
-/* Alternate row — slides in below */
-.or-alt {
-max-height: 0;
-overflow: hidden;
-transition: max-height 0.25s cubic-bezier(0.4,0,0.2,1);
-}
+  .or-wrap.open .or-alt { max-height: 200px; }
 
-.or-wrap.open .or-alt { max-height: 200px; }
+  .or-alt-inner {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px 8px 28px;
+    gap: 10px;
+    border-top: 0.5px solid var(--separator);
+    background: var(--fill);
+    min-height: 38px;
+  }
 
-.or-alt-inner {
-display: flex;
-align-items: center;
-padding: 8px 16px 8px 28px;
-gap: 10px;
-border-top: 0.5px solid var(–separator);
-background: var(–fill);
-min-height: 38px;
-}
+  .or-alt-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
 
-.or-alt-label {
-font-size: 11px;
-font-weight: 500;
-color: var(–tertiary);
-text-transform: uppercase;
-letter-spacing: 0.06em;
-flex-shrink: 0;
-}
+  .or-alt-name {
+    flex: 1;
+    font-size: 14px;
+    color: var(--secondary);
+    line-height: 1.3;
+  }
 
-.or-alt-name {
-flex: 1;
-font-size: 14px;
-color: var(–secondary);
-line-height: 1.3;
-}
+  /* Neck block */
+  .neck-block {
+    margin: 4px 16px 12px;
+    background: var(--fill);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
 
-/* Neck block */
-.neck-block {
-margin: 4px 16px 12px;
-background: var(–fill);
-border-radius: 10px;
-padding: 10px 12px;
-}
+  .neck-rounds {
+    font-size: 12px;
+    color: var(--secondary);
+    margin-bottom: 6px;
+  }
 
-.neck-rounds {
-font-size: 12px;
-color: var(–secondary);
-margin-bottom: 6px;
-}
+  .neck-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--label);
+    padding: 3px 0;
+  }
 
-.neck-row {
-display: flex;
-justify-content: space-between;
-font-size: 14px;
-color: var(–label);
-padding: 3px 0;
-}
-
-.neck-row span:last-child { color: var(–secondary); }
+  .neck-row span:last-child { color: var(--secondary); }
 </style>
-
 </head>
 <body>
 
@@ -327,191 +311,189 @@ padding: 3px 0;
 <div class="content">
   <div class="card-group">
 
-
-<!-- ── DAY 1 ── -->
-<div class="day-row" onclick="toggleDay(this,'day1')">
-  <div class="day-text">
-    <div class="day-name">Day 1 · Upper</div>
-    <div class="day-desc">Strength + Surf Support</div>
-  </div>
-  <span class="chevron">›</span>
-</div>
-<div class="day-detail" id="day1">
-  <div class="detail-inner">
-
-    <div class="sub-label">Warm-up</div>
-    <div class="ex-row"><span class="ex-name">Foam roller thoracic extensions</span><span class="ex-sets">2×10</span></div>
-    <div class="ex-row"><span class="ex-name">Cat-cow</span><span class="ex-sets">2×10</span></div>
-    <div class="ex-row"><span class="ex-name">Wall slides</span><span class="ex-sets">2×15</span></div>
-    <div class="ex-row"><span class="ex-name">Band pull-aparts</span><span class="ex-sets">2×20</span></div>
-    <div class="ex-row"><span class="ex-name">Chin tucks</span><span class="ex-sets">2×15</span></div>
-    <div class="ex-row"><span class="ex-name">Scapular push-ups</span><span class="ex-sets">2×12</span></div>
-
-    <div class="sub-label">Main Work</div>
-    <div class="ex-row"><span class="ex-name">Neutral grip lat pulldown</span><span class="ex-sets">4×8–10</span><input class="ex-weight" type="text" placeholder="lb" value="200 lb"></div>
-    <div class="ex-row"><span class="ex-name">Machine chest press</span><span class="ex-sets">4×8–10</span><input class="ex-weight" type="text" placeholder="lb" value="70 lb"></div>
-    <div class="ex-row"><span class="ex-name">T-bar row</span><span class="ex-sets">4×6–8</span><input class="ex-weight" type="text" placeholder="lb" value="135 lb"></div>
-    <div class="ex-row"><span class="ex-name">Incline DB press</span><span class="ex-sets">2×6–8</span><input class="ex-weight" type="text" placeholder="lb" value="60 lb"></div>
-    <div class="ex-row"><span class="ex-name">Machine lateral raises</span><span class="ex-sets">3×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="80 lb"></div>
-    <div class="ex-row"><span class="ex-name">Cable face pulls</span><span class="ex-sets">3×15–20</span><input class="ex-weight" type="text" placeholder="lb" value="50 lb"></div>
-    <div class="ex-row"><span class="ex-name">Prone Y-T-W raises</span><span class="ex-sets">2–3×12–15</span><input class="ex-weight" type="text" placeholder="lb"></div>
-    <div class="ex-row"><span class="ex-name">Bicep curl + tricep</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb"></div>
-
-  </div>
-</div>
-
-<!-- ── DAY 2 ── -->
-<div class="day-row" onclick="toggleDay(this,'day2')">
-  <div class="day-text">
-    <div class="day-name">Day 2 · Lower</div>
-    <div class="day-desc">Strength + Lumbar Friendly</div>
-  </div>
-  <span class="chevron">›</span>
-</div>
-<div class="day-detail" id="day2">
-  <div class="detail-inner">
-
-    <div class="sub-label">Warm-up</div>
-    <div class="ex-row"><span class="ex-name">Glute bridges</span><span class="ex-sets">2×15</span></div>
-    <div class="ex-row"><span class="ex-name">Bird dogs</span><span class="ex-sets">2×10/side</span></div>
-    <div class="ex-row"><span class="ex-name">Bodyweight reverse lunges</span><span class="ex-sets">2×10</span></div>
-    <div class="ex-row"><span class="ex-name">Hip airplanes</span><span class="ex-sets">2×8</span></div>
-    <div class="ex-row"><span class="ex-name">Ankle mobility drill</span><span class="ex-sets">2 min</span></div>
-    <div class="ex-row"><span class="ex-name">McGill curl-up</span><span class="ex-sets">2×10</span></div>
-
-    <div class="sub-label">Main Work</div>
-    <div class="ex-row"><span class="ex-name">Back squat</span><span class="ex-sets">4×5–8</span><input class="ex-weight" type="text" placeholder="lb" value="245 lb"></div>
-    <div class="ex-row"><span class="ex-name">Romanian deadlift</span><span class="ex-sets">3×6–8</span><input class="ex-weight" type="text" placeholder="lb" value="80 lb"></div>
-
-    <div class="or-wrap">
-      <div class="or-primary" onclick="toggleOr(this)">
-        <span class="ex-name">Hack squat</span>
-        <span class="or-chevron">›</span>
-        <span class="ex-sets">3×6–8</span>
-        <input class="ex-weight" type="text" placeholder="lb" value="270 lb">
+    <!-- ── DAY 1 ── -->
+    <div class="day-row" onclick="toggleDay(this,'day1')">
+      <div class="day-text">
+        <div class="day-name">Day 1 · Upper</div>
+        <div class="day-desc">Strength + Surf Support</div>
       </div>
-      <div class="or-alt">
-        <div class="or-alt-inner">
-          <span class="or-alt-label">Alt</span>
-          <span class="or-alt-name">Horizontal leg press</span>
-          <input class="ex-weight" type="text" placeholder="lb" value="8×45 lb">
+      <span class="chevron">›</span>
+    </div>
+    <div class="day-detail" id="day1">
+      <div class="detail-inner">
+
+        <div class="sub-label">Warm-up</div>
+        <div class="ex-row"><span class="ex-name">Foam roller thoracic extensions</span><span class="ex-sets">2×10</span></div>
+        <div class="ex-row"><span class="ex-name">Cat-cow</span><span class="ex-sets">2×10</span></div>
+        <div class="ex-row"><span class="ex-name">Wall slides</span><span class="ex-sets">2×15</span></div>
+        <div class="ex-row"><span class="ex-name">Band pull-aparts</span><span class="ex-sets">2×20</span></div>
+        <div class="ex-row"><span class="ex-name">Chin tucks</span><span class="ex-sets">2×15</span></div>
+        <div class="ex-row"><span class="ex-name">Scapular push-ups</span><span class="ex-sets">2×12</span></div>
+
+        <div class="sub-label">Main Work</div>
+        <div class="ex-row"><span class="ex-name">Neutral grip lat pulldown</span><span class="ex-sets">4×8–10</span><input class="ex-weight" type="text" placeholder="lb" value="200 lb"></div>
+        <div class="ex-row"><span class="ex-name">Machine chest press</span><span class="ex-sets">4×8–10</span><input class="ex-weight" type="text" placeholder="lb" value="70 lb"></div>
+        <div class="ex-row"><span class="ex-name">T-bar row</span><span class="ex-sets">4×6–8</span><input class="ex-weight" type="text" placeholder="lb" value="135 lb"></div>
+        <div class="ex-row"><span class="ex-name">Incline DB press</span><span class="ex-sets">2×6–8</span><input class="ex-weight" type="text" placeholder="lb" value="60 lb"></div>
+        <div class="ex-row"><span class="ex-name">Machine lateral raises</span><span class="ex-sets">3×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="80 lb"></div>
+        <div class="ex-row"><span class="ex-name">Cable face pulls</span><span class="ex-sets">3×15–20</span><input class="ex-weight" type="text" placeholder="lb" value="50 lb"></div>
+        <div class="ex-row"><span class="ex-name">Prone Y-T-W raises</span><span class="ex-sets">2–3×12–15</span><input class="ex-weight" type="text" placeholder="lb"></div>
+        <div class="ex-row"><span class="ex-name">Bicep curl + tricep</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb"></div>
+
+      </div>
+    </div>
+
+    <!-- ── DAY 2 ── -->
+    <div class="day-row" onclick="toggleDay(this,'day2')">
+      <div class="day-text">
+        <div class="day-name">Day 2 · Lower</div>
+        <div class="day-desc">Strength + Lumbar Friendly</div>
+      </div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="day-detail" id="day2">
+      <div class="detail-inner">
+
+        <div class="sub-label">Warm-up</div>
+        <div class="ex-row"><span class="ex-name">Glute bridges</span><span class="ex-sets">2×15</span></div>
+        <div class="ex-row"><span class="ex-name">Bird dogs</span><span class="ex-sets">2×10/side</span></div>
+        <div class="ex-row"><span class="ex-name">Bodyweight reverse lunges</span><span class="ex-sets">2×10</span></div>
+        <div class="ex-row"><span class="ex-name">Hip airplanes</span><span class="ex-sets">2×8</span></div>
+        <div class="ex-row"><span class="ex-name">Ankle mobility drill</span><span class="ex-sets">2 min</span></div>
+        <div class="ex-row"><span class="ex-name">McGill curl-up</span><span class="ex-sets">2×10</span></div>
+
+        <div class="sub-label">Main Work</div>
+        <div class="ex-row"><span class="ex-name">Back squat</span><span class="ex-sets">4×5–8</span><input class="ex-weight" type="text" placeholder="lb" value="245 lb"></div>
+        <div class="ex-row"><span class="ex-name">Romanian deadlift</span><span class="ex-sets">3×6–8</span><input class="ex-weight" type="text" placeholder="lb" value="80 lb"></div>
+
+        <div class="or-wrap">
+          <div class="or-primary" onclick="toggleOr(this)">
+            <span class="ex-name">Hack squat</span>
+            <span class="or-chevron">›</span>
+            <span class="ex-sets">3×6–8</span>
+            <input class="ex-weight" type="text" placeholder="lb" value="270 lb">
+          </div>
+          <div class="or-alt">
+            <div class="or-alt-inner">
+              <span class="or-alt-label">Alt</span>
+              <span class="or-alt-name">Horizontal leg press</span>
+              <input class="ex-weight" type="text" placeholder="lb" value="8×45 lb">
+            </div>
+          </div>
         </div>
+
+        <div class="ex-row"><span class="ex-name">Bulgarian split squat</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb" value="50 lb KB/leg"></div>
+        <div class="ex-row"><span class="ex-name">Seated leg curl</span><span class="ex-sets">3×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="4 plates"></div>
+        <div class="ex-row"><span class="ex-name">Seated calf raises</span><span class="ex-sets">4×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="90 lb"></div>
+        <div class="ex-row"><span class="ex-name">Back extensions</span><span class="ex-sets">3×15–20</span><input class="ex-weight" type="text" placeholder="lb"></div>
+        <div class="ex-row"><span class="ex-name">Pallof press</span><span class="ex-sets">3×12–15/side</span><input class="ex-weight" type="text" placeholder="lb"></div>
+
       </div>
     </div>
 
-    <div class="ex-row"><span class="ex-name">Bulgarian split squat</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb" value="50 lb KB/leg"></div>
-    <div class="ex-row"><span class="ex-name">Seated leg curl</span><span class="ex-sets">3×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="4 plates"></div>
-    <div class="ex-row"><span class="ex-name">Seated calf raises</span><span class="ex-sets">4×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="90 lb"></div>
-    <div class="ex-row"><span class="ex-name">Back extensions</span><span class="ex-sets">3×15–20</span><input class="ex-weight" type="text" placeholder="lb"></div>
-    <div class="ex-row"><span class="ex-name">Pallof press</span><span class="ex-sets">3×12–15/side</span><input class="ex-weight" type="text" placeholder="lb"></div>
-
-  </div>
-</div>
-
-<!-- ── DAY 3 ── -->
-<div class="day-row" onclick="toggleDay(this,'day3')">
-  <div class="day-text">
-    <div class="day-name">Day 3 · Upper</div>
-    <div class="day-desc">Hypertrophy + Shoulder Health</div>
-  </div>
-  <span class="chevron">›</span>
-</div>
-<div class="day-detail" id="day3">
-  <div class="detail-inner">
-
-    <div class="sub-label">Warm-up</div>
-    <div class="ex-row"><span class="ex-name">Thoracic rotations</span><span class="ex-sets">2×10/side</span></div>
-    <div class="ex-row"><span class="ex-name">Wall slides</span><span class="ex-sets">2×15</span></div>
-    <div class="ex-row"><span class="ex-name">Band external rotations</span><span class="ex-sets">2×15</span></div>
-    <div class="ex-row"><span class="ex-name">Light face pulls</span><span class="ex-sets">2×20</span></div>
-    <div class="ex-row"><span class="ex-name">Chin tucks</span><span class="ex-sets">2×15</span></div>
-
-    <div class="sub-label">Main Work</div>
-
-    <div class="or-wrap">
-      <div class="or-primary" onclick="toggleOr(this)">
-        <span class="ex-name">Machine chest press</span>
-        <span class="or-chevron">›</span>
-        <span class="ex-sets">3×8–12</span>
-        <input class="ex-weight" type="text" placeholder="lb">
+    <!-- ── DAY 3 ── -->
+    <div class="day-row" onclick="toggleDay(this,'day3')">
+      <div class="day-text">
+        <div class="day-name">Day 3 · Upper</div>
+        <div class="day-desc">Hypertrophy + Shoulder Health</div>
       </div>
-      <div class="or-alt">
-        <div class="or-alt-inner">
-          <span class="or-alt-label">Alt</span>
-          <span class="or-alt-name">Smith press</span>
-          <input class="ex-weight" type="text" placeholder="lb">
+      <span class="chevron">›</span>
+    </div>
+    <div class="day-detail" id="day3">
+      <div class="detail-inner">
+
+        <div class="sub-label">Warm-up</div>
+        <div class="ex-row"><span class="ex-name">Thoracic rotations</span><span class="ex-sets">2×10/side</span></div>
+        <div class="ex-row"><span class="ex-name">Wall slides</span><span class="ex-sets">2×15</span></div>
+        <div class="ex-row"><span class="ex-name">Band external rotations</span><span class="ex-sets">2×15</span></div>
+        <div class="ex-row"><span class="ex-name">Light face pulls</span><span class="ex-sets">2×20</span></div>
+        <div class="ex-row"><span class="ex-name">Chin tucks</span><span class="ex-sets">2×15</span></div>
+
+        <div class="sub-label">Main Work</div>
+
+        <div class="or-wrap">
+          <div class="or-primary" onclick="toggleOr(this)">
+            <span class="ex-name">Machine chest press</span>
+            <span class="or-chevron">›</span>
+            <span class="ex-sets">3×8–12</span>
+            <input class="ex-weight" type="text" placeholder="lb">
+          </div>
+          <div class="or-alt">
+            <div class="or-alt-inner">
+              <span class="or-alt-label">Alt</span>
+              <span class="or-alt-name">Smith press</span>
+              <input class="ex-weight" type="text" placeholder="lb">
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="ex-row"><span class="ex-name">Seated cable row</span><span class="ex-sets">4×10–12</span><input class="ex-weight" type="text" placeholder="lb" value="150 lb"></div>
-    <div class="ex-row"><span class="ex-name">DB chest press</span><span class="ex-sets">2×10–12</span><input class="ex-weight" type="text" placeholder="lb" value="65 lb"></div>
-    <div class="ex-row"><span class="ex-name">Unilateral lat pulldown</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb"></div>
-    <div class="ex-row"><span class="ex-name">DB lateral raises</span><span class="ex-sets">3×15–20</span><input class="ex-weight" type="text" placeholder="lb" value="20 lb"></div>
-    <div class="ex-row"><span class="ex-name">Cable face pulls</span><span class="ex-sets">3×15–20</span><input class="ex-weight" type="text" placeholder="lb" value="50 lb"></div>
-    <div class="ex-row"><span class="ex-name">Cable rotations</span><span class="ex-sets">3×10–12/side</span><input class="ex-weight" type="text" placeholder="lb" value="33 lb"></div>
-    <div class="ex-row"><span class="ex-name">Bicep curl + tricep</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb"></div>
+        <div class="ex-row"><span class="ex-name">Seated cable row</span><span class="ex-sets">4×10–12</span><input class="ex-weight" type="text" placeholder="lb" value="150 lb"></div>
+        <div class="ex-row"><span class="ex-name">DB chest press</span><span class="ex-sets">2×10–12</span><input class="ex-weight" type="text" placeholder="lb" value="65 lb"></div>
+        <div class="ex-row"><span class="ex-name">Unilateral lat pulldown</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb"></div>
+        <div class="ex-row"><span class="ex-name">DB lateral raises</span><span class="ex-sets">3×15–20</span><input class="ex-weight" type="text" placeholder="lb" value="20 lb"></div>
+        <div class="ex-row"><span class="ex-name">Cable face pulls</span><span class="ex-sets">3×15–20</span><input class="ex-weight" type="text" placeholder="lb" value="50 lb"></div>
+        <div class="ex-row"><span class="ex-name">Cable rotations</span><span class="ex-sets">3×10–12/side</span><input class="ex-weight" type="text" placeholder="lb" value="33 lb"></div>
+        <div class="ex-row"><span class="ex-name">Bicep curl + tricep</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb"></div>
 
-    <div class="sub-label">Neck Isometrics</div>
-    <div class="neck-block">
-      <div class="neck-rounds">2–3 rounds · 20–30 sec each</div>
-      <div class="neck-row"><span>Flexion</span><span>20–30 sec</span></div>
-      <div class="neck-row"><span>Extension</span><span>20–30 sec</span></div>
-      <div class="neck-row"><span>Lateral flexion</span><span>20–30 sec</span></div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ── DAY 4 ── -->
-<div class="day-row" onclick="toggleDay(this,'day4')">
-  <div class="day-text">
-    <div class="day-name">Day 4 · Lower</div>
-    <div class="day-desc">Surf Transfer + Reduced Axial Load</div>
-  </div>
-  <span class="chevron">›</span>
-</div>
-<div class="day-detail" id="day4">
-  <div class="detail-inner">
-
-    <div class="sub-label">Warm-up</div>
-    <div class="ex-row"><span class="ex-name">Hip flexor stretch</span><span class="ex-sets">1 min/side</span></div>
-    <div class="ex-row"><span class="ex-name">Glute bridges</span><span class="ex-sets">2×15</span></div>
-    <div class="ex-row"><span class="ex-name">Bird dogs</span><span class="ex-sets">2×10/side</span></div>
-    <div class="ex-row"><span class="ex-name">Cat-cow</span><span class="ex-sets">2×10</span></div>
-    <div class="ex-row"><span class="ex-name">Thoracic extensions</span><span class="ex-sets">2×10</span></div>
-
-    <div class="sub-label">Main Work</div>
-    <div class="ex-row"><span class="ex-name">Vertical leg press</span><span class="ex-sets">4×10–15</span><input class="ex-weight" type="text" placeholder="lb" value="230 lb"></div>
-    <div class="ex-row"><span class="ex-name">Hip thrust</span><span class="ex-sets">4×8–12</span><input class="ex-weight" type="text" placeholder="lb"></div>
-    <div class="ex-row"><span class="ex-name">Sumo squat</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb" value="140 lb"></div>
-
-    <div class="or-wrap">
-      <div class="or-primary" onclick="toggleOr(this)">
-        <span class="ex-name">Reverse lunges</span>
-        <span class="or-chevron">›</span>
-        <span class="ex-sets">3×10/leg</span>
-        <input class="ex-weight" type="text" placeholder="lb">
-      </div>
-      <div class="or-alt">
-        <div class="or-alt-inner">
-          <span class="or-alt-label">Alt</span>
-          <span class="or-alt-name">Step-ups</span>
-          <input class="ex-weight" type="text" placeholder="lb">
+        <div class="sub-label">Neck Isometrics</div>
+        <div class="neck-block">
+          <div class="neck-rounds">2–3 rounds · 20–30 sec each</div>
+          <div class="neck-row"><span>Flexion</span><span>20–30 sec</span></div>
+          <div class="neck-row"><span>Extension</span><span>20–30 sec</span></div>
+          <div class="neck-row"><span>Lateral flexion</span><span>20–30 sec</span></div>
         </div>
+
       </div>
     </div>
 
-    <div class="ex-row"><span class="ex-name">Leg curl</span><span class="ex-sets">3×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="4 plates"></div>
-    <div class="ex-row"><span class="ex-name">Leg extension</span><span class="ex-sets">2–3×12–15</span><input class="ex-weight" type="text" placeholder="lb"></div>
-    <div class="ex-row"><span class="ex-name">Standing calf raises</span><span class="ex-sets">4×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="100 lb"></div>
-    <div class="ex-row"><span class="ex-name">Bird dogs</span><span class="ex-sets">3×10/side</span></div>
-    <div class="ex-row"><span class="ex-name">McGill curl-up</span><span class="ex-sets">3×10</span></div>
-    <div class="ex-row"><span class="ex-name">Farmer carry</span><span class="ex-sets">3 rounds · 30–40 m</span><input class="ex-weight" type="text" placeholder="lb"></div>
+    <!-- ── DAY 4 ── -->
+    <div class="day-row" onclick="toggleDay(this,'day4')">
+      <div class="day-text">
+        <div class="day-name">Day 4 · Lower</div>
+        <div class="day-desc">Surf Transfer + Reduced Axial Load</div>
+      </div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="day-detail" id="day4">
+      <div class="detail-inner">
 
-  </div>
-</div>
+        <div class="sub-label">Warm-up</div>
+        <div class="ex-row"><span class="ex-name">Hip flexor stretch</span><span class="ex-sets">1 min/side</span></div>
+        <div class="ex-row"><span class="ex-name">Glute bridges</span><span class="ex-sets">2×15</span></div>
+        <div class="ex-row"><span class="ex-name">Bird dogs</span><span class="ex-sets">2×10/side</span></div>
+        <div class="ex-row"><span class="ex-name">Cat-cow</span><span class="ex-sets">2×10</span></div>
+        <div class="ex-row"><span class="ex-name">Thoracic extensions</span><span class="ex-sets">2×10</span></div>
 
+        <div class="sub-label">Main Work</div>
+        <div class="ex-row"><span class="ex-name">Vertical leg press</span><span class="ex-sets">4×10–15</span><input class="ex-weight" type="text" placeholder="lb" value="230 lb"></div>
+        <div class="ex-row"><span class="ex-name">Hip thrust</span><span class="ex-sets">4×8–12</span><input class="ex-weight" type="text" placeholder="lb"></div>
+        <div class="ex-row"><span class="ex-name">Sumo squat</span><span class="ex-sets">3×10–12</span><input class="ex-weight" type="text" placeholder="lb" value="140 lb"></div>
+
+        <div class="or-wrap">
+          <div class="or-primary" onclick="toggleOr(this)">
+            <span class="ex-name">Reverse lunges</span>
+            <span class="or-chevron">›</span>
+            <span class="ex-sets">3×10/leg</span>
+            <input class="ex-weight" type="text" placeholder="lb">
+          </div>
+          <div class="or-alt">
+            <div class="or-alt-inner">
+              <span class="or-alt-label">Alt</span>
+              <span class="or-alt-name">Step-ups</span>
+              <input class="ex-weight" type="text" placeholder="lb">
+            </div>
+          </div>
+        </div>
+
+        <div class="ex-row"><span class="ex-name">Leg curl</span><span class="ex-sets">3×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="4 plates"></div>
+        <div class="ex-row"><span class="ex-name">Leg extension</span><span class="ex-sets">2–3×12–15</span><input class="ex-weight" type="text" placeholder="lb"></div>
+        <div class="ex-row"><span class="ex-name">Standing calf raises</span><span class="ex-sets">4×12–15</span><input class="ex-weight" type="text" placeholder="lb" value="100 lb"></div>
+        <div class="ex-row"><span class="ex-name">Bird dogs</span><span class="ex-sets">3×10/side</span></div>
+        <div class="ex-row"><span class="ex-name">McGill curl-up</span><span class="ex-sets">3×10</span></div>
+        <div class="ex-row"><span class="ex-name">Farmer carry</span><span class="ex-sets">3 rounds · 30–40 m</span><input class="ex-weight" type="text" placeholder="lb"></div>
+
+      </div>
+    </div>
 
   </div>
 </div>
@@ -538,6 +520,5 @@ padding: 3px 0;
     input.addEventListener('click', e => e.stopPropagation());
   });
 </script>
-
 </body>
 </html>
