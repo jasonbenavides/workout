@@ -8,14 +8,26 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #000000;
-    --card: #1c1c1e;
-    --separator: rgba(84,84,88,0.6);
-    --label: #ffffff;
-    --secondary: rgba(235,235,245,0.6);
-    --tertiary: rgba(235,235,245,0.3);
+    --bg: #f2f2f7;
+    --card: #ffffff;
+    --separator: rgba(60,60,67,0.12);
+    --label: #000000;
+    --secondary: rgba(60,60,67,0.6);
+    --tertiary: rgba(60,60,67,0.3);
     --blue: #007aff;
-    --fill: rgba(120,120,128,0.2);
+    --fill: rgba(120,120,128,0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #000000;
+      --card: #1c1c1e;
+      --separator: rgba(84,84,88,0.6);
+      --label: #ffffff;
+      --secondary: rgba(235,235,245,0.6);
+      --tertiary: rgba(235,235,245,0.3);
+      --fill: rgba(120,120,128,0.2);
+    }
   }
 
   body {
@@ -38,7 +50,9 @@
     padding: 12px 16px 10px;
   }
 
-  .nav { background: rgba(0,0,0,0.85); }
+  @media (prefers-color-scheme: dark) {
+    .nav { background: rgba(0,0,0,0.85); }
+  }
 
   .nav h1 {
     font-size: 34px;
