@@ -201,11 +201,6 @@
     flex-shrink: 0;
   }
 
-  .ex-weight::placeholder {
-    color: var(--tertiary);
-    -webkit-text-fill-color: var(--tertiary);
-  }
-
   /* OR exercise wrapper */
   .or-wrap {
     position: relative;
@@ -378,18 +373,18 @@
             <span class="ex-name">Hack squat</span>
             <span class="or-chevron">›</span>
             <span class="ex-sets">3×6–8</span>
-            <span class="ex-sets">270 lb</span></div>
+            <span class="ex-sets">270 lb</span>
           </div>
           <div class="or-alt">
             <div class="or-alt-inner">
               <span class="or-alt-label">Alt</span>
               <span class="or-alt-name">Horizontal leg press</span>
-              <span class="ex-sets">8x45 lb</span></div>
+              <span class="ex-sets">8x45 lb</span>
             </div>
           </div>
         </div>
 
-        <div class="ex-row"><span class="ex-name">Bulgarian split squat</span><span class="ex-sets">3×10–12</span><span class="ex-sets">50 lb KB/leg<span></div>
+        <div class="ex-row"><span class="ex-name">Bulgarian split squat</span><span class="ex-sets">3×10–12</span><span class="ex-sets">50 lb KB/leg</span></div>
         <div class="ex-row"><span class="ex-name">Seated leg curl</span><span class="ex-sets">3×12–15</span><span class="ex-sets">4 plates</span></div>
         <div class="ex-row"><span class="ex-name">Seated calf raises</span><span class="ex-sets">4×12–15</span><span class="ex-sets">90 lb</span></div>
         <div class="ex-row"><span class="ex-name">Back extensions</span><span class="ex-sets">3×15–20</span><span class="ex-sets">45 lb</span></div>
@@ -423,13 +418,13 @@
             <span class="ex-name">Incline machine chest press</span>
             <span class="or-chevron">›</span>
             <span class="ex-sets">3×8–12</span>
-            <span class="ex-sets">70 lb</span></div>
+            <span class="ex-sets">70 lb</span>
           </div>
           <div class="or-alt">
             <div class="or-alt-inner">
               <span class="or-alt-label">Alt</span>
               <span class="or-alt-name">Smith press</span>
-              <span class="ex-sets">60 lb</span></div>
+              <span class="ex-sets">60 lb</span>
             </div>
           </div>
         </div>
@@ -482,13 +477,13 @@
             <span class="ex-name">Reverse lunges</span>
             <span class="or-chevron">›</span>
             <span class="ex-sets">3×10/leg</span>
-            <span class="ex-sets">x lb</span></div>
+            <span class="ex-sets">x lb</span>
           </div>
           <div class="or-alt">
             <div class="or-alt-inner">
               <span class="or-alt-label">Alt</span>
               <span class="or-alt-name">Step-ups</span>
-              <span class="ex-sets">x lb</span></div>
+              <span class="ex-sets">x lb</span>
             </div>
           </div>
         </div>
@@ -522,11 +517,6 @@
     const wrap = primaryEl.closest('.or-wrap');
     wrap.classList.toggle('open');
   }
-
-  // Prevent inputs from bubbling up to toggleDay / toggleOr
-  document.querySelectorAll('.ex-weight').forEach(input => {
-    input.addEventListener('click', e => e.stopPropagation());
-  });
 </script>
 </body>
 </html>
